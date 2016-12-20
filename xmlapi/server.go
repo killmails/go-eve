@@ -6,21 +6,25 @@ import (
 )
 
 const (
-	ServerStatusUrl client.EndpointUrl = "/server/ServerStatus.xml.aspx"
+	serverStatusURL client.EndpointURL = "/server/ServerStatus.xml.aspx"
 )
 
 type (
-	serverScope struct {
-		*XmlApi
+	// ServerScope is the API/server interface
+	ServerScope struct {
+		*XMLAPI
 	}
 )
 
-func (x *XmlApi) Server() (r serverScope) {
-	r = serverScope{x}
+// Server is the scope for /server/* API requests
+func (x *XMLAPI) Server() (r ServerScope) {
+	r = ServerScope{x}
 	return
 }
 
-func (x serverScope) ServerStatus() (result xmlapi.ServerStatus, err error) {
-	err = x.Fetch(ServerStatusUrl, &result, nil)
+// ServerStatus provides status of the server up/down and the number of users
+// logged onto the server.
+func (x ServerScope) ServerStatus() (result xmlapi.ServerStatus, err error) {
+	err = x.Fetch(serverStatusURL, &result, nil)
 	return
 }

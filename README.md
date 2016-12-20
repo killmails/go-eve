@@ -27,18 +27,18 @@ func main() {
 
 	fmt.Println("Server Status:")
 	fmt.Println("-----")
-	fmt.Printf("Server Open: %t\n", ss.ServerOpen)
+	fmt.Printf("Server Opent: %t\n", ss.ServerOpen)
 	fmt.Printf("Online Players: %d\n", ss.OnlinePlayers)
 	fmt.Println("-----")
 	fmt.Printf("Cached For: %v\n", ss.GetCachedFor())
 
 	// API Key Authentication
-	key := client.ApiKey{
-		KeyId:            123,
+	key := client.APIKey{
+		KeyID:            123,
 		VerificationCode: "abcd...",
 	}
 	opts := &client.Options{
-		ApiKey: key,
+		APIKey: key,
 	}
 	api, err = xmlapi.New(opts)
 	as, err := api.Account().AccountStatus()

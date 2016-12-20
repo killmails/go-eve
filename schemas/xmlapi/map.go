@@ -1,8 +1,10 @@
 package xmlapi
 
 type (
+	// FacWarSystems is the structure used to represent the
+	// /map/FacWarSystems.xml.aspx response
 	FacWarSystems struct {
-		EveApi
+		EveAPI
 		SolarSystems []struct {
 			SolarSystemID         int    `xml:"solarSystemID,attr"`
 			SolarSystemName       string `xml:"solarSystemName,attr"`
@@ -16,8 +18,10 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// Jumps is the structure used to represent the
+	// /map/Jumps.xml.aspx response
 	Jumps struct {
-		EveApi
+		EveAPI
 		DataTime
 		SolarSystems []struct {
 			SolarSystemID int `xml:"solarSystemID,attr"`
@@ -25,8 +29,10 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// Kills is the structure used to represent the
+	// /map/Kills.xml.aspx response
 	Kills struct {
-		EveApi
+		EveAPI
 		DataTime
 		SolarSystems []struct {
 			SolarSystemID int `xml:"solarSystemID,attr"`
@@ -36,8 +42,10 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// Sovereignty is the structure used to represent the
+	// /map/Sovereignty.xml.aspx response
 	Sovereignty struct {
-		EveApi
+		EveAPI
 		DataTime
 		SolarSystems []struct {
 			SolarSystemID   int    `xml:"solarSystemID,attr"`

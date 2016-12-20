@@ -1,8 +1,11 @@
 package xmlapi
 
 type (
+
+	// AllianceList is the structure used to represent the
+	// /eve/AllianceList.xml.aspx response
 	AllianceList struct {
-		EveApi
+		EveAPI
 		Alliances []struct {
 			Name               string `xml:"name,attr"`
 			ShortName          string `xml:"shortName,attr"`
@@ -17,8 +20,10 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// CharacterAffiliation is the structure used to represent the
+	// /eve/CharacterAffiliation.xml.aspx response
 	CharacterAffiliation struct {
-		EveApi
+		EveAPI
 		Characters []struct {
 			CharacterID     int    `xml:"characterID,attr"`
 			CharacterName   string `xml:"characterName,attr"`
@@ -31,16 +36,20 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// CharacterID is the structure used to represent the
+	// /eve/CharacterID.xml.aspx response
 	CharacterID struct {
-		EveApi
+		EveAPI
 		Characters []struct {
 			Name        string `xml:"name,attr"`
 			CharacterID int    `xml:"characterID,attr"`
 		} `xml:"result>rowset>row"`
 	}
 
+	// CharacterInfo is the structure used to represent the
+	// /eve/CharacterInfo.xml.aspx response
 	CharacterInfo struct {
-		EveApi
+		EveAPI
 		CharacterID       int     `xml:"result>characterID"`
 		CharacterName     string  `xml:"result>characterName"`
 		Race              string  `xml:"result>race"`
@@ -70,16 +79,20 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// CharacterName is the structure used to represent the
+	// /eve/CharacterName.xml.aspx response
 	CharacterName struct {
-		EveApi
+		EveAPI
 		Characters []struct {
 			Name        string `xml:"name,attr"`
 			CharacterID int    `xml:"characterID,attr"`
 		} `xml:"result>rowset>row"`
 	}
 
+	// ConquerableStationList is the structure used to represent the
+	// /eve/ConquerableStationList.xml.aspx response
 	ConquerableStationList struct {
-		EveApi
+		EveAPI
 		Outposts []struct {
 			StationID       int    `xml:"stationID,attr"`
 			StationName     string `xml:"stationName,attr"`
@@ -93,24 +106,30 @@ type (
 		} `xml:"result>rowset>row"`
 	}
 
+	// ErrorList is the structure used to represent the
+	// /eve/ErrorList.xml.aspx response
 	ErrorList struct {
-		EveApi
+		EveAPI
 		Errors []struct {
 			ErrorCode int    `xml:"errorCode,attr"`
 			ErrorText string `xml:"errorText,attr"`
 		} `xml:"result>rowset>row"`
 	}
 
+	// RefTypes is the structure used to represent the
+	// /eve/RefTypes.xml.aspx response
 	RefTypes struct {
-		EveApi
+		EveAPI
 		RefTypes []struct {
 			RefTypeID   int    `xml:"refTypeID,attr"`
 			RefTypeName string `xml:"refTypeName,attr"`
 		} `xml:"result>rowset>row"`
 	}
 
+	// TypeName is the structure used to represent the
+	// /eve/TypeName.xml.aspx response
 	TypeName struct {
-		EveApi
+		EveAPI
 		Types []struct {
 			TypeID   int    `xml:"typeID,attr"`
 			TypeName string `xml:"typeName,attr"`

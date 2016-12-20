@@ -8,12 +8,15 @@ import (
 )
 
 const (
-	TranquilityUrl client.ServerUrl = "https://api.eveonline.com"
-	SingularityUrl client.ServerUrl = "https://api.testeveonline.com"
+	// TranquilityURL is the address of Tranquility API server
+	TranquilityURL client.ServerURL = "https://api.eveonline.com"
+	// SingularityURL is the address of Singularity API server
+	SingularityURL client.ServerURL = "https://api.testeveonline.com"
 )
 
 type (
-	XmlApi struct {
+	// XMLAPI is the API interface
+	XMLAPI struct {
 		*client.Client
 	}
 )
@@ -24,13 +27,13 @@ func decoder(in io.Reader, out interface{}) (err error) {
 	return
 }
 
-// New returns a XmlApi client to access EVE Online XML API
-func New(opts *client.Options) (x *XmlApi, err error) {
-	if opts.ServerUrl == "" {
-		opts.ServerUrl = TranquilityUrl
+// New returns a XMLAPI client to access EVE Online XML API
+func New(opts *client.Options) (x *XMLAPI, err error) {
+	if opts.ServerURL == "" {
+		opts.ServerURL = TranquilityURL
 	}
 
 	c, err := client.New(opts, decoder)
-	x = &XmlApi{c}
+	x = &XMLAPI{c}
 	return
 }
