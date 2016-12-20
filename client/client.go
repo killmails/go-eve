@@ -9,58 +9,61 @@ import (
 )
 
 const (
-	UserAgentName    string  = "go-eve"
-	UserAgentVersion float32 = 1.0
-	UserAgentUrl     string  = "https://github.com/killmails/go-eve"
+	userAgentName    string  = "go-eve"
+	userAgentVersion float32 = 1.0
+	userAgentURL     string  = "https://github.com/killmails/go-eve"
 )
 
 type (
+	// DecoderFunc is used to process the http.Response into a result
 	DecoderFunc func(in io.Reader, out interface{}) (err error)
 
-	ServerUrl   string
-	EndpointUrl string
+	// ServerURL represents a API server URL
+	ServerURL string
+	// EndpointURL represents a API endpoint URL
+	EndpointURL string
 
+	// UserAgent is the "User-Agent" header requests will be send with
 	UserAgent struct {
 		Name    string
 		Version float32
-		Url     string
+		URL     string
 	}
 
-	ApiKey struct {
-		KeyId            int
+	// APIKey holds the API Key authentication
+	APIKey struct {
+		KeyID            int
 		VerificationCode string
 	}
 
+	// Client is a tiny wrapper over http.Client
 	Client struct {
 		client  *http.Client
 		options *Options
 		decoder DecoderFunc
 	}
 
+	// Options holds various options for Client
 	Options struct {
-		ServerUrl ServerUrl
+		ServerURL ServerURL
 		UserAgent UserAgent
-		ApiKey    ApiKey
+		APIKey    APIKey
 	}
 
+	// Params is used to build the query for http.Request
 	Params map[string]string
-)
-
-var (
-	ErrApiKeyInvalidKeyId            = errors.New("You must provide a valid API Key ID!")
-	ErrApiKeyInvalidVerificationCode = errors.New("You must provide a valid API Verification Code!")
 )
 
 // New returns a Client to handle requests
 func New(opts *Options, dec DecoderFunc) (c *Client, err error) {
 	if opts.UserAgent.Name == "" {
-		opts.UserAgent.Name = UserAgentName
+		opts.UserAgent.Name = userAgentName
 	}
 	if opts.UserAgent.Version == 0 {
-		opts.UserAgent.Version = UserAgentVersion
+		opts.UserAgent.Version = userAgentVersion
 	}
-	if opts.UserAgent.Url == "" {
-		opts.UserAgent.Url = UserAgentUrl
+	if opts.UserAgent.URL == "" {
+		opts.UserAgent.URL = userAgentURL
 	}
 
 	c = &Client{
@@ -71,11 +74,12 @@ func New(opts *Options, dec DecoderFunc) (c *Client, err error) {
 	return
 }
 
-func (c *Client) Fetch(endpoint EndpointUrl, result interface{}, params Params) (err error) {
+// Fetch makes a http.Request to the API endpoint and processes the http.Response
+func (c *Client) Fetch(endpoint EndpointURL, result interface{}, params Params) (err error) {
 	var req *http.Request
 	var res *http.Response
 	var query url.Values
-	var url string = fmt.Sprintf("%s%s", c.options.ServerUrl, endpoint)
+	var url = fmt.Sprintf("%s%s", c.options.ServerURL, endpoint)
 
 	if req, err = http.NewRequest("GET", url, nil); err != nil {
 		return
@@ -84,9 +88,9 @@ func (c *Client) Fetch(endpoint EndpointUrl, result interface{}, params Params) 
 	req.Header.Add("User-Agent", c.options.UserAgent.String())
 
 	query = req.URL.Query()
-	if c.options.ApiKey.KeyId != 0 {
-		query.Set("keyID", fmt.Sprintf("%d", c.options.ApiKey.KeyId))
-		query.Set("vCode", c.options.ApiKey.VerificationCode)
+	if c.options.APIKey.KeyID != 0 {
+		query.Set("keyID", fmt.Sprintf("%d", c.options.APIKey.KeyID))
+		query.Set("vCode", c.options.APIKey.VerificationCode)
 	}
 	if params != nil {
 		for key, value := range params {
@@ -112,6 +116,6 @@ func (c *Client) Fetch(endpoint EndpointUrl, result interface{}, params Params) 
 }
 
 func (ua UserAgent) String() (u string) {
-	u = fmt.Sprintf("%s/%.1f (+%s)", ua.Name, ua.Version, ua.Url)
+	u = fmt.Sprintf("%s/%.1f (+%s)", ua.Name, ua.Version, ua.URL)
 	return
 }

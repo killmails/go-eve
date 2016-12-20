@@ -1,8 +1,11 @@
 package xmlapi
 
 type (
+
+	// AccountStatus is the structure used to represent the
+	// /account/AccountStatus.xml.aspx response
 	AccountStatus struct {
-		EveApi
+		EveAPI
 		PaidUntil              Time `xml:"result>paidUntil"`
 		CreateDate             Time `xml:"result>createDate"`
 		LogonCount             int  `xml:"result>logonCount"`
@@ -12,8 +15,10 @@ type (
 		} `xml:"result>rowset>row,omitempty"`
 	}
 
+	// APIKeyInfo is the structure used to represent the
+	// /account/APIKeyInfo.xml.aspx response
 	APIKeyInfo struct {
-		EveApi
+		EveAPI
 		Key struct {
 			AccessMask int64  `xml:"accessMask,attr"`
 			Type       string `xml:"type,attr"`
@@ -31,8 +36,10 @@ type (
 		} `xml:"result>key"`
 	}
 
+	// Characters is the structure used to represent the
+	// /account/Characters.xml.aspx response
 	Characters struct {
-		EveApi
+		EveAPI
 		Characters []struct {
 			Name            string `xml:"name,attr"`
 			CharacterID     int    `xml:"characterID,attr"`
