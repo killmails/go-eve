@@ -1,6 +1,7 @@
 # go-eve
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/killmails/go-eve)](https://goreportcard.com/report/github.com/killmails/go-eve)
+[![GoDoc](https://godoc.org/github.com/killmails/go-eve?status.svg)](https://godoc.org/github.com/killmails/go-eve)
 
 go-eve is a library for interacting with EVE Online's XML API.
 
